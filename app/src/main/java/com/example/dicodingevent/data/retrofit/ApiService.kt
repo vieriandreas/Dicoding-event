@@ -7,11 +7,9 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface ApiService {
-    @GET("detail/{id}")
-    fun getRestaurant(
-        @Path("id") id: String
-    ): Call<ResponseItem>
-
     @GET("events")
     fun getActiveEvents() : Call<ResponseEvent>
+
+    @GET("events?active=0")
+    fun getPastEvents() : Call<ResponseEvent>
 }
