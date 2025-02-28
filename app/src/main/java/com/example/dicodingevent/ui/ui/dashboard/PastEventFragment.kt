@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.dicodingevent.databinding.FragmentDashboardBinding
+import com.example.dicodingevent.databinding.FragmentPastBinding
 
 class PastEventFragment : Fragment() {
 
-    private var _binding: FragmentDashboardBinding? = null
+    private var _binding: FragmentPastBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -24,7 +24,7 @@ class PastEventFragment : Fragment() {
         val dashboardViewModel =
             ViewModelProvider(this).get(PastEventViewModel::class.java)
 
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        _binding = FragmentPastBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
 

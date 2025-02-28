@@ -9,12 +9,12 @@
         android:id="@+id/navigation_active"
         android:name="com.example.dicodingevent.ui.ui.home.ActiveEventFragment"
         android:label="@string/title_active"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_active" />
 
     <fragment
         android:id="@+id/navigation_past"
         android:name="com.example.dicodingevent.ui.ui.dashboard.PastEventFragment"
         android:label="@string/title_past"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_past" />
 
 </navigation>
