@@ -1,20 +1,24 @@
 package com.example.dicodingevent.data.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class ResponseEvent(
 
 	@field:SerializedName("listEvents")
-	val listEvents: List<ListEventsItem>,
+	val listEvents: List<EventsItem>,
 
 	@field:SerializedName("error")
 	val error: Boolean,
 
 	@field:SerializedName("message")
 	val message: String
-)
+) : Parcelable
 
-data class ListEventsItem(
+@Parcelize
+data class EventsItem(
 
 	@field:SerializedName("summary")
 	val summary: String,
@@ -57,4 +61,4 @@ data class ListEventsItem(
 
 	@field:SerializedName("category")
 	val category: String
-)
+) : Parcelable

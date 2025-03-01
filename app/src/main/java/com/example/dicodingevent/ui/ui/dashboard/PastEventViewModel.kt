@@ -3,7 +3,7 @@ package com.example.dicodingevent.ui.ui.dashboard
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.dicodingevent.data.response.ListEventsItem
+import com.example.dicodingevent.data.response.EventsItem
 import com.example.dicodingevent.data.response.ResponseEvent
 import com.example.dicodingevent.data.retrofit.ApiConfig
 import retrofit2.Call
@@ -42,7 +42,7 @@ class PastEventViewModel : ViewModel() {
 
 
 sealed class PastEventStatus {
-    data class Succes (val list : List<ListEventsItem>) : PastEventStatus()
+    data class Succes (val list : List<EventsItem>) : PastEventStatus()
     data class Loading (val loading : Boolean) : PastEventStatus()
     data object Error : PastEventStatus()
 }

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.dicodingevent.EventAdapter
 import com.example.dicodingevent.databinding.FragmentPastBinding
 import com.example.dicodingevent.ui.ui.home.ActiveEventViewModel
@@ -34,7 +35,7 @@ class PastEventFragment : Fragment() {
         _binding = FragmentPastBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val layoutManager = LinearLayoutManager(requireContext())
+        val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         _binding?.rvPast?.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(requireContext(), layoutManager.orientation)
         _binding?.rvPast?.addItemDecoration(itemDecoration)

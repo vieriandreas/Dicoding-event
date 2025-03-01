@@ -1,10 +1,9 @@
 package com.example.dicodingevent.ui.ui.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.dicodingevent.data.response.ListEventsItem
+import com.example.dicodingevent.data.response.EventsItem
 import com.example.dicodingevent.data.response.ResponseEvent
 import com.example.dicodingevent.data.retrofit.ApiConfig
 import retrofit2.Call
@@ -43,7 +42,7 @@ class ActiveEventViewModel : ViewModel() {
 
 
 sealed class EventStatus {
-    data class Succes (val list : List<ListEventsItem>) : EventStatus()
+    data class Succes (val list : List<EventsItem>) : EventStatus()
     data class Loading (val loading : Boolean) : EventStatus()
     data object Error : EventStatus()
 }
