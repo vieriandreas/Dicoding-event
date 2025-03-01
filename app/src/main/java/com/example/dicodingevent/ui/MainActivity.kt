@@ -3,6 +3,7 @@ package com.example.dicodingevent.ui
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
@@ -40,15 +41,20 @@ class MainActivity : AppCompatActivity() {
             Glide.with(this)
                 .load(dataEvent.imageLogo)
                 .into(binding.ivLogo)
-        }
-        binding.tvEventName.text = dataEvent?.name
-        binding.tvOwnerName.text = "Owner: ${dataEvent?.ownerName}"
-        binding.tvBegginTime.text = "waktu: ${dataEvent?.beginTime}"
-        binding.tvQuota.text = "Kuota tersedia: ${dataEvent?.quota}"
-        binding.tvDescription.text = dataEvent?.description
-        binding.btnLinkEvent.setOnClickListener {
-            if (dataEvent != null) {
-                openEvent(dataEvent.link)
+
+            binding.tvEventName.text = dataEvent?.name
+            binding.tvOwnerName.text = "Owner: ${dataEvent?.ownerName}"
+            binding.tvBegginTime.text = "waktu: ${dataEvent?.beginTime}"
+            binding.tvQuota.text = "Kuota tersedia: ${dataEvent?.quota}"
+            binding.tvDescription.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Html.fromHtml(dataEvent.description, Html.FROM_HTML_MODE_COMPACT)
+            } else {
+                Html.fromHtml(dataEvent.description)
+            }
+            binding.btnLinkEvent.setOnClickListener {
+                if (dataEvent != null) {
+                    openEvent(dataEvent.link)
+                }
             }
         }
     }
