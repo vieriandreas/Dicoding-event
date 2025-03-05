@@ -20,9 +20,6 @@ class ActiveEventFragment : Fragment() {
     private val eventAdapter = EventAdapter()
     private lateinit var viewModel : ActiveEventViewModel
 
-    companion object {
-        private const val TAG = "HomeFragment"
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

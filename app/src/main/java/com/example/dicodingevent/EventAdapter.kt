@@ -2,10 +2,7 @@ package com.example.dicodingevent
 
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dicodingevent.data.response.EventsItem
 import com.example.dicodingevent.databinding.EventItemBinding

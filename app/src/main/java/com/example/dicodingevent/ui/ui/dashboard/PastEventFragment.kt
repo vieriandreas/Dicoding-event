@@ -7,12 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.dicodingevent.EventAdapter
 import com.example.dicodingevent.databinding.FragmentPastBinding
-import com.example.dicodingevent.ui.ui.home.ActiveEventViewModel
-import com.example.dicodingevent.ui.ui.home.EventStatus
 
 class PastEventFragment : Fragment() {
 

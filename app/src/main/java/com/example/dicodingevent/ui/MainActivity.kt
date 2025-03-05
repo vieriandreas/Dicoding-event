@@ -5,11 +5,9 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
-import android.widget.ImageView
-import android.widget.TextView
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.example.dicodingevent.R
 import com.example.dicodingevent.data.response.EventsItem
 import com.example.dicodingevent.databinding.ActivityMainBinding
 
@@ -45,7 +43,10 @@ class MainActivity : AppCompatActivity() {
             binding.tvEventName.text = dataEvent?.name
             binding.tvOwnerName.text = "Owner: ${dataEvent?.ownerName}"
             binding.tvBegginTime.text = "waktu: ${dataEvent?.beginTime}"
-            binding.tvQuota.text = "Kuota tersedia: ${dataEvent?.quota}"
+            val quota = dataEvent.quota
+            val registrant = dataEvent.registrants
+            val remainingQuota = quota - registrant
+            binding.tvQuota.text = "Kuota tersedia: ${remainingQuota}"
             binding.tvDescription.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 Html.fromHtml(dataEvent.description, Html.FROM_HTML_MODE_COMPACT)
             } else {
@@ -63,5 +64,15 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent.parseUri(link, Intent.URI_INTENT_SCHEME)
         startActivity(intent)
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
