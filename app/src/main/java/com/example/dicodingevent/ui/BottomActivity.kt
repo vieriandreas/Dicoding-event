@@ -35,7 +35,6 @@ class BottomActivity : BaseActivity() {
                 R.id.navigation_active, R.id.navigation_past
             )
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
         binding.fabTheme.setOnClickListener {

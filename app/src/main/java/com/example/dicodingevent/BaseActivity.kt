@@ -24,7 +24,7 @@ abstract class BaseActivity : AppCompatActivity() {
     protected fun setTheme() {
         if (currentTheme == LIGHT) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        } else {
+        } else {)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
     }
