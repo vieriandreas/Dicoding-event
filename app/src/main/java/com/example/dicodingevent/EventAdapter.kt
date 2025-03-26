@@ -5,12 +5,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.example.dicodingevent.data.response.EventsItem
 import com.example.dicodingevent.databinding.EventItemBinding
 import com.example.dicodingevent.ui.MainActivity
 
-class EventAdapter : ListAdapter<EventsItem,EventItemViewHolder>(DIFF_CALLBACK) {
+class EventAdapter : ListAdapter<EventsItem, EventItemViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventItemViewHolder {
         val binding = EventItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)

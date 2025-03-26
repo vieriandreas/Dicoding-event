@@ -1,21 +1,26 @@
 package com.example.dicodingevent.ui
 
 import android.os.Bundle
+import android.widget.Toolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.dicodingevent.BaseActivity
 import com.example.dicodingevent.R
 import com.example.dicodingevent.databinding.ActivityBottomBinding
 
-class BottomActivity : AppCompatActivity() {
+class BottomActivity : BaseActivity() {
 
     private lateinit var binding: ActivityBottomBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setTheme()
 
         binding = ActivityBottomBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -32,5 +37,10 @@ class BottomActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        binding.fabTheme.setOnClickListener {
+            switchTheme()
+        }
+
     }
 }
