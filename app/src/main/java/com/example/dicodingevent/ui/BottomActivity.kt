@@ -32,10 +32,9 @@ class BottomActivity : BaseActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_active, R.id.navigation_past
+                R.id.navigation_active, R.id.navigation_past , R.id.navigation_favorite
             )
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
         binding.fabTheme.setOnClickListener {

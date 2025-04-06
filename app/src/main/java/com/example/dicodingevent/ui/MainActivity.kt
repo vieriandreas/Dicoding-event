@@ -7,13 +7,19 @@ import android.text.Html
 import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.example.dicodingevent.data.database.ViewModelFactory
 import com.example.dicodingevent.data.response.EventsItem
+import com.example.dicodingevent.data.response.convertEventItemToFavoriteEvent
 import com.example.dicodingevent.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var mainViewModel: MainViewModel
+    private var isFavorite = false
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,6 +64,37 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        mainViewModel = obtainViewModel(this@MainActivity)
+
+
+
+        mainViewModel.getAllFavorite().observe(this) { favoriteEvents ->
+            if (favoriteEvents != null) {
+                Log.d("MainActivity", "Jumlah event favorit: ${favoriteEvents.size}")
+                for (favoriteEvent in favoriteEvents) {
+                    Log.d("MainActivity", "Event favorit: ${favoriteEvent.name}")
+                }
+            }
+        }
+
+        mainViewModel.isFavoriteEvent(dataEvent?.id ?: 0) {
+            viewModelScope.launch {
+            }
+        }
+    }
+
+    private fun setFavoriteIcon(isFavorite: Boolean) {
+        if (isFavorite) {
+            binding.fabFavorite.setImageResource(com.example.dicodingevent.R.drawable.dark_theme)
+        } else {
+            binding.fabFavorite.setImageResource(com.example.dicodingevent.R.drawable.favorite)
+        }
+    }
+
+    private fun obtainViewModel(activity: AppCompatActivity): MainViewModel {
+        val factory = ViewModelFactory.getInstance(activity.application)
+        return ViewModelProvider(activity, factory).get(MainViewModel::class.java)
     }
 
     private fun openEvent (link : String) {
