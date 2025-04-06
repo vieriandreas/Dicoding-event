@@ -1,4 +1,4 @@
-package com.example.dicodingevent.ui.ui.dashboard
+package com.example.dicodingevent.ui.ui.past
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

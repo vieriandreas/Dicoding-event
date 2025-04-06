@@ -1,4 +1,4 @@
-package com.example.dicodingevent.ui.ui.dashboard
+package com.example.dicodingevent.ui.ui.past
 
 import android.os.Bundle
 import android.view.LayoutInflater

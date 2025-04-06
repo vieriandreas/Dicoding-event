@@ -1,4 +1,4 @@
-package com.example.dicodingevent.ui.ui.home
+package com.example.dicodingevent.ui.ui.active
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
