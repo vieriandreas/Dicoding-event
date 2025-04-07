@@ -78,10 +78,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        mainViewModel.isFavoriteEvent(dataEvent?.id ?: 0) {
+      /*  mainViewModel.isFavoriteEvent(dataEvent?.id ?: 0) {
             viewModelScope.launch {
             }
-        }
+        }*/
     }
 
     private fun setFavoriteIcon(isFavorite: Boolean) {
