@@ -9,23 +9,19 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.example.dicodingevent.data.database.FavoriteEntity
 import com.example.dicodingevent.data.database.ViewModelFactory
 import com.example.dicodingevent.data.response.EventsItem
-import com.example.dicodingevent.data.response.convertEventItemToFavoriteEvent
-import com.example.dicodingevent.databinding.ActivityMainBinding
+import com.example.dicodingevent.databinding.ActivityDetailBinding
 
-class MainActivity : AppCompatActivity() {
+class DetailActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var mainViewModel: MainViewModel
+    private lateinit var binding: ActivityDetailBinding
+    private lateinit var mainViewModel: DetailViewModel
     private var isFavorite = false
-    private var favoriteEvent: FavoriteEntity? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -66,7 +62,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        mainViewModel = obtainViewModel(this@MainActivity)
+        mainViewModel = obtainViewModel(this@DetailActivity)
 
         if (dataEvent != null) {
             mainViewModel.isFavoriteEvent(dataEvent.id).observe(this) { event ->
@@ -88,15 +84,15 @@ class MainActivity : AppCompatActivity() {
     private fun setFavoriteIcon(isFavorite: Boolean) {
         this.isFavorite = isFavorite
         if (isFavorite) {
-            binding.fabFavorite.setImageResource(com.example.dicodingevent.R.drawable.dark_theme)
+            binding.fabFavorite.setImageResource(com.example.dicodingevent.R.drawable.star_filed)
         } else {
-            binding.fabFavorite.setImageResource(com.example.dicodingevent.R.drawable.favorite)
+            binding.fabFavorite.setImageResource(com.example.dicodingevent.R.drawable.star_unfilled)
         }
     }
 
-    private fun obtainViewModel(activity: AppCompatActivity): MainViewModel {
+    private fun obtainViewModel(activity: AppCompatActivity): DetailViewModel {
         val factory = ViewModelFactory.getInstance(activity.application)
-        return ViewModelProvider(activity, factory).get(MainViewModel::class.java)
+        return ViewModelProvider(activity, factory).get(DetailViewModel::class.java)
     }
 
     private fun openEvent(link: String) {

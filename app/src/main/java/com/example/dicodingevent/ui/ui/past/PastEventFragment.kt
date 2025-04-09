@@ -15,7 +15,7 @@ class PastEventFragment : Fragment() {
 
     private var _binding: FragmentPastBinding? = null
     private val eventAdapter = EventAdapter()
-    private lateinit var viewModel : PastEventViewModel
+    private lateinit var viewModel: PastEventViewModel
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -47,10 +47,15 @@ class PastEventFragment : Fragment() {
 
     private fun observeActiveEvent() {
         viewModel.event.observe(viewLifecycleOwner) { status ->
-            when(status) {
+            when (status) {
                 PastEventStatus.Error -> {}
-                is PastEventStatus.Loading -> {showLoading(status.loading)}
-                is PastEventStatus.Succes -> {eventAdapter.submitList(status.list)}
+                is PastEventStatus.Loading -> {
+                    showLoading(status.loading)
+                }
+
+                is PastEventStatus.Succes -> {
+                    eventAdapter.submitList(status.list)
+                }
             }
         }
     }

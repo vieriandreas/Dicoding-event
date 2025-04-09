@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
+    tools:context=".ui.DetailActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -119,5 +119,5 @@
         android:layout_gravity="right|bottom"
         android:layout_marginTop="270dp"
         android:layout_marginRight="15dp"
-        android:src="@drawable/favorite" />
+        android:src="@drawable/star_unfilled" />
 </FrameLayout>
