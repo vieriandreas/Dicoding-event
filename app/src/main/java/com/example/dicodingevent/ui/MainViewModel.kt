@@ -15,7 +15,9 @@ class MainViewModel (application: Application) : ViewModel() {
     }
     fun getAllFavorite() : LiveData<List<FavoriteEntity>> = favoriteRepository.getAllFavorite()
 
-    fun isFavoriteEvent(id: FavoriteEntity) = favoriteRepository.isFavoriteEvent(id)
+    fun isFavoriteEvent(id: Int): LiveData<FavoriteEntity> {
+        return favoriteRepository.isFavoriteEvent(id)
+    }
 
     fun delete(id: FavoriteEntity) {
         favoriteRepository.delete(id)

@@ -68,6 +68,12 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel = obtainViewModel(this@MainActivity)
 
+        if (dataEvent != null) {
+            mainViewModel.isFavoriteEvent(dataEvent.id).observe(this) { event ->
+                setFavoriteIcon(event != null)
+            }
+        }
+
         binding.fabFavorite.setOnClickListener {
             if (dataEvent != null) {
                 mainViewModel.insert(dataEvent)
