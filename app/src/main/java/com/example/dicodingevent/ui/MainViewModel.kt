@@ -19,8 +19,8 @@ class MainViewModel (application: Application) : ViewModel() {
         return favoriteRepository.isFavoriteEvent(id)
     }
 
-    fun delete(id: FavoriteEntity) {
-        favoriteRepository.delete(id)
+    fun delete(eventsItem: EventsItem) {
+        favoriteRepository.delete(convertEventItemToFavoriteEvent(eventsItem))
     }
 }
 

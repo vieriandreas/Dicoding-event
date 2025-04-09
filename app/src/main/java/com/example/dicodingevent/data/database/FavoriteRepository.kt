@@ -24,8 +24,8 @@ class FavoriteRepository(application: Application) {
         return favoriteDao.isFavoriteEvent(id)
     }
 
-    fun delete(id: FavoriteEntity) {
-        executorService.execute { favoriteDao.delete(id) }
+    fun delete(favorite: FavoriteEntity) {
+        executorService.execute { favoriteDao.delete(favorite) }
     }
 }
 

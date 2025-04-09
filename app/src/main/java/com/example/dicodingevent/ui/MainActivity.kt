@@ -76,16 +76,17 @@ class MainActivity : AppCompatActivity() {
 
         binding.fabFavorite.setOnClickListener {
             if (dataEvent != null) {
-                mainViewModel.insert(dataEvent)
+                if (isFavorite) {
+                    mainViewModel.delete(dataEvent)
+                } else {
+                    mainViewModel.insert(dataEvent)
+                }
             }
         }
-
-
-
-
     }
 
     private fun setFavoriteIcon(isFavorite: Boolean) {
+        this.isFavorite = isFavorite
         if (isFavorite) {
             binding.fabFavorite.setImageResource(com.example.dicodingevent.R.drawable.dark_theme)
         } else {
