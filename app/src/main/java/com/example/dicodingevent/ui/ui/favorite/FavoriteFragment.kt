@@ -37,21 +37,11 @@ class FavoriteFragment : Fragment() {
         _binding?.rvFavorite?.addItemDecoration(itemDecoration)
         _binding?.rvFavorite?.adapter = eventAdapter
 
-        viewModel.getFavorite()
-
-        observeActiveEvent()
-
-        return root
-    }
-
-    private fun observeActiveEvent() {
-        viewModel.event.observe(viewLifecycleOwner) { status ->
-            when(status) {
-                FavoriteStatus.Error -> {}
-                is FavoriteStatus.Loading -> {showLoading(status.loading)}
-                is FavoriteStatus.Succes -> {eventAdapter.submitList(status.list)}
-            }
+        viewModel.getAllFavorite().observe(viewLifecycleOwner) { event ->
+            eventAdapter.submitList(event)
+            showLoading(false)
         }
+        return root
     }
 
     private fun showLoading(isLoading: Boolean) {

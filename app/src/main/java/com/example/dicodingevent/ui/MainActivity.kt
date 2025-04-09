@@ -9,6 +9,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.example.dicodingevent.data.database.FavoriteEntity
 import com.example.dicodingevent.data.database.ViewModelFactory
 import com.example.dicodingevent.data.response.EventsItem
 import com.example.dicodingevent.data.response.convertEventItemToFavoriteEvent
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var mainViewModel: MainViewModel
     private var isFavorite = false
-
+    private var favoriteEvent: FavoriteEntity? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,21 +68,15 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel = obtainViewModel(this@MainActivity)
 
-
-
-        mainViewModel.getAllFavorite().observe(this) { favoriteEvents ->
-            if (favoriteEvents != null) {
-                Log.d("MainActivity", "Jumlah event favorit: ${favoriteEvents.size}")
-                for (favoriteEvent in favoriteEvents) {
-                    Log.d("MainActivity", "Event favorit: ${favoriteEvent.name}")
-                }
+        binding.fabFavorite.setOnClickListener {
+            if (dataEvent != null) {
+                mainViewModel.insert(dataEvent)
             }
         }
 
-      /*  mainViewModel.isFavoriteEvent(dataEvent?.id ?: 0) {
-            viewModelScope.launch {
-            }
-        }*/
+
+
+
     }
 
     private fun setFavoriteIcon(isFavorite: Boolean) {
@@ -97,7 +92,7 @@ class MainActivity : AppCompatActivity() {
         return ViewModelProvider(activity, factory).get(MainViewModel::class.java)
     }
 
-    private fun openEvent (link : String) {
+    private fun openEvent(link: String) {
         val intent = Intent.parseUri(link, Intent.URI_INTENT_SCHEME)
         startActivity(intent)
 

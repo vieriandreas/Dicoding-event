@@ -1,49 +1,39 @@
 package com.example.dicodingevent.ui.ui.favorite
 
+import android.app.Application
+import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.dicodingevent.data.database.DbModule
+import androidx.lifecycle.map
+import com.example.dicodingevent.data.database.FavoriteRepository
 import com.example.dicodingevent.data.response.EventsItem
 import com.example.dicodingevent.data.response.ResponseEvent
+import com.example.dicodingevent.data.response.convertFavoriteEventToEventItem
 import com.example.dicodingevent.data.retrofit.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FavoriteViewModel(private val db: DbModule): ViewModel() {
+class FavoriteViewModel(application: Application): AndroidViewModel(application) {
 
+    private val favoriteRepository: FavoriteRepository = FavoriteRepository(application)
     private val _event = MutableLiveData<FavoriteStatus>()
     val event : LiveData<FavoriteStatus> = _event
 
-    fun getFavorite () {
-        _event.value=FavoriteStatus.Loading(true)
-        val client = ApiConfig.getApiService().getPastEvents()
-        client.enqueue(object : Callback<ResponseEvent> {
-            override fun onResponse(
-                call: Call<ResponseEvent>,
-                response: Response<ResponseEvent>
-            ) {
-                _event.value=FavoriteStatus.Loading(false)
-                if (response.isSuccessful) {
-                    val responseBody = response.body()
-                    if (responseBody != null) {
-                        _event.postValue(FavoriteStatus.Succes(responseBody.listEvents))
-                    }
-                } else {
-                    _event.postValue(FavoriteStatus.Error)
-                }
-            }
-            override fun onFailure(call: Call<ResponseEvent>, t: Throwable) {
-                _event.value=FavoriteStatus.Loading(false)
-            }
-        })
-    }
-}
+    fun getAllFavorite() : LiveData<List<EventsItem>> {
+        return favoriteRepository.getAllFavorite().map {
+            val result = mutableListOf<EventsItem>()
 
-class Factory(private val db: DbModule) : ViewModelProvider.NewInstanceFactory() {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T = FavoriteViewModel(db) as T
+            it.forEach { fav ->
+                result.add(convertFavoriteEventToEventItem(fav))
+            }
+
+            return@map result
+        }
+    }
 }
 
 sealed class FavoriteStatus {

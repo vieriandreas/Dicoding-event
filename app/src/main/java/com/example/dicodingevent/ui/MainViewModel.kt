@@ -5,17 +5,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.dicodingevent.data.database.FavoriteEntity
 import com.example.dicodingevent.data.database.FavoriteRepository
+import com.example.dicodingevent.data.response.EventsItem
+import com.example.dicodingevent.data.response.convertEventItemToFavoriteEvent
 
 class MainViewModel (application: Application) : ViewModel() {
     private val favoriteRepository: FavoriteRepository = FavoriteRepository(application)
-    fun insert(favorite: FavoriteEntity) {
-        favoriteRepository.insert(favorite)
+    fun insert(eventsItem: EventsItem) {
+        favoriteRepository.insert(convertEventItemToFavoriteEvent(eventsItem))
     }
     fun getAllFavorite() : LiveData<List<FavoriteEntity>> = favoriteRepository.getAllFavorite()
 
-    fun isFavoriteEvent(id: Int) = favoriteRepository.isFavoriteEvent(id)
+    fun isFavoriteEvent(id: FavoriteEntity) = favoriteRepository.isFavoriteEvent(id)
 
-    fun delete(id: Int) {
+    fun delete(id: FavoriteEntity) {
         favoriteRepository.delete(id)
     }
 }
