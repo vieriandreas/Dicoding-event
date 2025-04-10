@@ -12,7 +12,7 @@ abstract class BaseActivity : AppCompatActivity() {
         const val DARK = "dark"
     }
 
-    private var currentTheme = LIGHT
+    var currentTheme = LIGHT
 
     override fun onCreate(savedInstanceState: Bundle?) {
         currentTheme = PreferenceManager

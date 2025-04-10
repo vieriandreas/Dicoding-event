@@ -13,17 +13,17 @@ import retrofit2.Response
 class PastEventViewModel : ViewModel() {
 
     private val _event = MutableLiveData<PastEventStatus>()
-    val event : LiveData<PastEventStatus> = _event
+    val event: LiveData<PastEventStatus> = _event
 
-    fun getPastEvent () {
-        _event.value=PastEventStatus.Loading(true)
+    fun getPastEvent() {
+        _event.value = PastEventStatus.Loading(true)
         val client = ApiConfig.getApiService().getPastEvents()
         client.enqueue(object : Callback<ResponseEvent> {
             override fun onResponse(
                 call: Call<ResponseEvent>,
                 response: Response<ResponseEvent>
             ) {
-                _event.value=PastEventStatus.Loading(false)
+                _event.value = PastEventStatus.Loading(false)
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
@@ -33,8 +33,9 @@ class PastEventViewModel : ViewModel() {
                     _event.postValue(PastEventStatus.Error)
                 }
             }
+
             override fun onFailure(call: Call<ResponseEvent>, t: Throwable) {
-                _event.value=PastEventStatus.Loading(false)
+                _event.value = PastEventStatus.Loading(false)
             }
         })
     }
@@ -42,8 +43,8 @@ class PastEventViewModel : ViewModel() {
 
 
 sealed class PastEventStatus {
-    data class Succes (val list : List<EventsItem>) : PastEventStatus()
-    data class Loading (val loading : Boolean) : PastEventStatus()
+    data class Succes(val list: List<EventsItem>) : PastEventStatus()
+    data class Loading(val loading: Boolean) : PastEventStatus()
     data object Error : PastEventStatus()
 }
 

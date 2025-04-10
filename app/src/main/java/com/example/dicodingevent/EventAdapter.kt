@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.dicodingevent.data.response.EventsItem
 import com.example.dicodingevent.databinding.EventItemBinding
-import com.example.dicodingevent.ui.MainActivity
+import com.example.dicodingevent.ui.DetailActivity
 
 class EventAdapter : ListAdapter<EventsItem, EventItemViewHolder>(DIFF_CALLBACK) {
 
@@ -22,7 +22,7 @@ class EventAdapter : ListAdapter<EventsItem, EventItemViewHolder>(DIFF_CALLBACK)
         holder.bind(currentList[position])
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context, MainActivity::class.java)
+            val intent = Intent(holder.itemView.context, DetailActivity::class.java)
             intent.putExtra("key_event", currentList[holder.adapterPosition])
             holder.itemView.context.startActivity(intent)
         }
@@ -39,5 +39,4 @@ class EventAdapter : ListAdapter<EventsItem, EventItemViewHolder>(DIFF_CALLBACK)
             }
         }
     }
-
 }

@@ -6,26 +6,45 @@ import android.os.Bundle
 import android.text.Html
 import android.util.Log
 import android.view.MenuItem
+import android.view.ViewGroup
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.dicodingevent.data.database.ViewModelFactory
 import com.example.dicodingevent.data.response.EventsItem
-import com.example.dicodingevent.data.response.convertEventItemToFavoriteEvent
-import com.example.dicodingevent.databinding.ActivityMainBinding
+import com.example.dicodingevent.databinding.ActivityDetailBinding
 
-class MainActivity : AppCompatActivity() {
+class DetailActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var mainViewModel: MainViewModel
+    private lateinit var binding: ActivityDetailBinding
+    private lateinit var mainViewModel: DetailViewModel
     private var isFavorite = false
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            // Apply the insets as a margin to the view. This solution sets
+            // only the bottom, left, and right dimensions, but you can apply whichever
+            // insets are appropriate to your layout. You can also update the view padding
+            // if that's more appropriate.
+            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                leftMargin = insets.left
+                bottomMargin = insets.bottom
+                rightMargin = insets.right
+            }
+
+            // Return CONSUMED if you don't want the window insets to keep passing
+            // down to descendant views.
+            WindowInsetsCompat.CONSUMED
+        }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -65,39 +84,40 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        mainViewModel = obtainViewModel(this@MainActivity)
+        mainViewModel = obtainViewModel(this@DetailActivity)
 
-
-
-        mainViewModel.getAllFavorite().observe(this) { favoriteEvents ->
-            if (favoriteEvents != null) {
-                Log.d("MainActivity", "Jumlah event favorit: ${favoriteEvents.size}")
-                for (favoriteEvent in favoriteEvents) {
-                    Log.d("MainActivity", "Event favorit: ${favoriteEvent.name}")
-                }
+        if (dataEvent != null) {
+            mainViewModel.isFavoriteEvent(dataEvent.id).observe(this) { event ->
+                setFavoriteIcon(event != null)
             }
         }
 
-        mainViewModel.isFavoriteEvent(dataEvent?.id ?: 0) {
-            viewModelScope.launch {
+        binding.fabFavorite.setOnClickListener {
+            if (dataEvent != null) {
+                if (isFavorite) {
+                    mainViewModel.delete(dataEvent)
+                } else {
+                    mainViewModel.insert(dataEvent)
+                }
             }
         }
     }
 
     private fun setFavoriteIcon(isFavorite: Boolean) {
+        this.isFavorite = isFavorite
         if (isFavorite) {
-            binding.fabFavorite.setImageResource(com.example.dicodingevent.R.drawable.dark_theme)
+            binding.fabFavorite.setImageResource(com.example.dicodingevent.R.drawable.star_filed)
         } else {
-            binding.fabFavorite.setImageResource(com.example.dicodingevent.R.drawable.favorite)
+            binding.fabFavorite.setImageResource(com.example.dicodingevent.R.drawable.star_unfilled)
         }
     }
 
-    private fun obtainViewModel(activity: AppCompatActivity): MainViewModel {
+    private fun obtainViewModel(activity: AppCompatActivity): DetailViewModel {
         val factory = ViewModelFactory.getInstance(activity.application)
-        return ViewModelProvider(activity, factory).get(MainViewModel::class.java)
+        return ViewModelProvider(activity, factory).get(DetailViewModel::class.java)
     }
 
-    private fun openEvent (link : String) {
+    private fun openEvent(link: String) {
         val intent = Intent.parseUri(link, Intent.URI_INTENT_SCHEME)
         startActivity(intent)
 

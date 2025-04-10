@@ -15,7 +15,7 @@ interface FavoriteDao {
     @Query("SELECT * from favorite")
     fun getAllFavorite(): LiveData<List<FavoriteEntity>>
 
-    @Query("SELECT EXISTS(SELECT * from favorite WHERE id = :id)")
+    @Query("SELECT * FROM favorite WHERE id = :id LIMIT 1")
     fun isFavoriteEvent(id: Int) : LiveData<FavoriteEntity>
 
     @Delete

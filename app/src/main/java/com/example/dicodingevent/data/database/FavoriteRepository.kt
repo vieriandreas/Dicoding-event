@@ -20,12 +20,12 @@ class FavoriteRepository(application: Application) {
         executorService.execute { favoriteDao.insert(favorite) }
     }
 
-    fun isFavoriteEvent(id: Int) {
-        executorService.execute { favoriteDao.delete(id) }
+    fun isFavoriteEvent(id: Int): LiveData<FavoriteEntity> {
+        return favoriteDao.isFavoriteEvent(id)
     }
 
-    fun delete(id: Int) {
-        executorService.execute { favoriteDao.delete(id) }
+    fun delete(favorite: FavoriteEntity) {
+        executorService.execute { favoriteDao.delete(favorite) }
     }
 }
 
