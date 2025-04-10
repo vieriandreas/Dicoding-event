@@ -1,6 +1,7 @@
 package com.example.dicodingevent.ui
 
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.dicodingevent.BaseActivity
@@ -13,6 +14,7 @@ class BottomActivity : BaseActivity() {
     private lateinit var binding: ActivityBottomBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
         setTheme()
